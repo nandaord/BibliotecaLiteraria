@@ -31,7 +31,7 @@ def atualizar():
     if nome in biblioteca:
         autor = input("Novo autor do livro: ")
         categoria = input("Nova categoria do livro: ")
-        preco = float(input("Novo preço do livro: ")
+        preco = float(input("Novo preço do livro: "))
         
         livro = {
             "Nome": nome,
