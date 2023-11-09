@@ -33,8 +33,8 @@ def cadastrar():
 
 # conf para aparecer tudo
 def listarlivros():
-    for nome, livro in biblioteca.items():
-        print(f"Nome: {nome}, Autor: {livro['Autor']}, Categoria: {livro['Categoria']}, Preço: R${livro['Preço']:.2f}")
+    for numero, livro in biblioteca.items():
+        print(f'''{numero}. \n'{livro[0]}' por {livro[1]} \nCategoria: {livro[2]}  Preço: R${livro[3]:.2f}''')
 
 
 # conf livro não achado e add
