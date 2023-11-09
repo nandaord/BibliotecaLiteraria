@@ -12,10 +12,24 @@ def cadastrar():
     #variavel pra contar
     
     #livro = []
-    biblioteca[len(biblioteca) + 1] = [nome, autor, categoria, preco]
+
+
+    livroJaExiste = False
+
+    for y in biblioteca:
+        get = biblioteca.get(y)
+        if get[0] == nome and get[1] == autor: 
+            livroJaExiste = True
+    
+    if livroJaExiste == True:
+        print("\nJá existe")
+    
+    else:
+        
+        biblioteca[len(biblioteca) + 1] = [nome, autor, categoria, preco]
         #nome, autor, categoria, preço
-    print("Livro cadastrado com sucesso!")
-    print(biblioteca)
+        print("Livro cadastrado com sucesso!")
+        print(biblioteca)
 
 # conf para aparecer tudo
 def listarlivros():
