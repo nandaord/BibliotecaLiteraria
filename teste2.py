@@ -3,20 +3,21 @@ biblioteca = {}
 
 # confg para colocar 
 def cadastrar():
+    
     nome = input("Digite o nome do livro: ")
     autor = input("Digite o nome do autor do livro: ")
     categoria = input("Digite a qual categoria o livro pertence: ")
     preco = float(input("Digite o preço do livro: "))
+    #contador = len(biblioteca)
+    #variavel pra contar
     
-    livro = {
-        "Nome": nome,
-        "Autor": autor,
-        "Categoria": categoria,
-        "Preço": preco
-    }
-    
-    biblioteca[nome] = livro
+    #livro = []
+    gambiarra = str(len(biblioteca))
+    biblioteca[gambiarra] = [nome, autor, categoria, preco]
+        #nome, autor, categoria, preço
     print("Livro cadastrado com sucesso!")
+    print(biblioteca)
+    print(biblioteca[contador])
 
 # conf para aparecer tudo
 def listarlivros():
