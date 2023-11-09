@@ -67,12 +67,16 @@ while True:
     
     if opcao == '1':
         cadastrar()
+        input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
     elif opcao == '2':
         listarlivros()
+        input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
     elif opcao == '3':
         atualizar()
+        input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
     elif opcao == '4':
         excluir()
+        input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
     elif opcao == '5':
         break
     else:
