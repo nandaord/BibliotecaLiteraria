@@ -3,9 +3,9 @@ biblioteca = {}
 
 # confg para colocar 
 def cadastrar():
-    nome = input("Digite o nome do livro: ")
-    autor = input("Digite o nome do autor do livro: ")
-    categoria = input("Digite a qual categoria o livro pertence: ")
+    nome = input("Digite o nome do livro: ").capitalize
+    autor = input("Digite o nome do autor do livro: ").capitalize
+    categoria = input("Digite a qual categoria o livro pertence: ").capitalize
     preco = float(input("Digite o preço do livro: "))
     
     livro = {
