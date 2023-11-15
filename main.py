@@ -12,38 +12,31 @@ bibliotecaExemplo = {
 categorias = ["Terror", "Aventura", "Sci-fi"]
 
 def cadastrar():
-    with open("antonio.txt","a", encoding="utf-8") as arquivo:
-        nome = input("Digite o nome do livro: ").title()
-        autor = input("Digite o nome do autor do livro: ").title()
-        categoria = input("Digite a qual categoria o livro pertence: ").title()
+    global biblioteca #ter certeza de que variavel biblioteca é o mesmo da global
+    
+    with open("antonio.txt", "a", encoding="utf-8") as arquivo:
+        titulo = input("Digite o nome do livro: ")
+        autor = input("Digite o nome do autor do livro: ")
+    
+        print(f"Essas sao as categorias disponiveis: {list(enumerate(categorias))}")
+    
+        categoria = int(input("Digite a qual categoria o livro pertence: "))
         preco = float(input("Digite o preço do livro: "))
+        if biblioteca == {}:
+            biblioteca = {
+                "titulo" : [titulo],
+                "autor" : [autor],
+                "categoria" : [categoria],
+                "valor" : [preco]
+            }
+        else:
+
+            biblioteca["titulo"].append(titulo)
+            biblioteca["autor"].append(autor)
+            biblioteca["categoria"].append(categoria)
+            biblioteca["valor"].append(preco)
         
-        arquivo.write(nome + " " + autor + " "+ categoria + " "+ str(preco) +"\n")
-        #contador = len(biblioteca)
-        #variavel pra contar
-    
-    #livro = []
-
-
-    livroJaExiste = False
-
-    for y in biblioteca:
-        get = biblioteca.get(y)
-        if get[0] == nome and get[1] == autor: 
-            livroJaExiste = True
-    
-    if livroJaExiste == True:
-        print("\nJá existe")
-    
-    else:
-        
-        biblioteca[len(biblioteca) + 1] = [nome, autor, categoria, preco]
-        #nome, autor, categoria, preço
-        print("Livro cadastrado com sucesso!")
-        print(biblioteca)
-    
-    arquivo.close()
-
+        arquivo.write(titulo + " " + autor + " " + str(categoria) + " " + str(preco) + "\n")
 
 
 def deletar():
@@ -86,24 +79,24 @@ def listar():
         print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
 
 
-
 def atualizar():
-    posicao=int(input(f"Digite o número do livro que deseja modificar de acordo com a listagem: {listar()}"))
-    item=input("Digite de qual categoria deseja modificar a informação:")
-    novo=input("Qual será o novo valor?")
+        posicao=int(input(f"Digite o número do livro que deseja modificar de acordo com a listagem: {listar()}"))
+        item=input("Digite de qual categoria deseja modificar a informação:")
+        novo=input("Qual será o novo valor?")
 
 
-    if item == "titulo":
-        biblioteca["titulo"][posicao] = novo
+        if item == "titulo":
+            biblioteca["titulo"][posicao] = novo
 
-    elif item =="autor":
-        biblioteca["autor"][posicao] = novo
+        elif item =="autor":
+            biblioteca["autor"][posicao] = novo
 
-    elif item =="categoria":
-        biblioteca["categoria"][posicao] = novo
+        elif item =="categoria":
+            biblioteca["categoria"][posicao] = novo
 
-    elif item =="valor":
-        biblioteca["valor"][posicao] = float(novo)
+        elif item =="valor":
+            biblioteca["valor"][posicao] = float(novo)
+    
         
 
 while True:
