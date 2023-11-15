@@ -97,3 +97,31 @@ def atualizar():
 
     elif item =="valor":
         biblioteca["valor"][posicao] = float(novo)
+        
+
+while True:
+    print("\n Gerenciamento de Biblioteca Pessoal \n")
+    print("1. Cadastrar Livro")
+    print("\n2. Listar Livros")
+    print("\n3. Atualizar Livro")
+    print("\n4. Excluir Livro")
+    print("\n5. Sair")
+    
+    opcao = input("Escolha uma opção: ")
+    
+    if opcao == '1':
+        cadastrar()
+        input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
+    elif opcao == '2':
+        listar()
+        input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
+    elif opcao == '3':
+        atualizar()
+        input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
+    elif opcao == '4':
+        deletar()
+        input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
+    elif opcao == '5':
+        break
+    else:
+        print("Tente novamente")
