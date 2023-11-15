@@ -12,62 +12,72 @@ bibliotecaExemplo = {
 categorias = ["Terror", "Aventura", "Sci-fi"]
 
 def cadastrar():
-    #TODO: CRIAR POSSIBILIDADE da biblioteca estar vazia, pois não terá nem chaves
-
-    #temos que considerar tbm se 'e o primeiro cadastro, se for, temos que criar as chaves da biblioteca
+    global biblioteca #ter certeza de que variavel biblioteca é o mesmo da global
+    
     titulo = input("Digite o nome do livro: ")
     autor = input("Digite o nome do autor do livro: ")
-    #dar um display nas categorias
+    
     print(f"Essas sao as categorias disponiveis: {list(enumerate(categorias))}")
-    #dar um display nas categorias. tem q usar loop for in range
+    
     categoria = int(input("Digite a qual categoria o livro pertence: "))
     preco = float(input("Digite o preço do livro: "))
+    if biblioteca == {}:
+        biblioteca = {
+            "titulo" : [titulo],
+            "autor" : [autor],
+            "categoria" : [categoria],
+            "valor" : [preco]
+        }
+    else:
 
-    bibliotecaExemplo["titulo"].append(titulo)
-    bibliotecaExemplo["autor"].append(autor)
-    bibliotecaExemplo["categoria"].append(categoria)
-    bibliotecaExemplo["valor"].append(preco)
-
-cadastrar()
-print(bibliotecaExemplo)
+        biblioteca["titulo"].append(titulo)
+        biblioteca["autor"].append(autor)
+        biblioteca["categoria"].append(categoria)
+        biblioteca["valor"].append(preco)
 
 
 def deletar():
     # TODO: considerar se só tem um livro pra deletar e criar uma bibklioteca vazianesse caso
-    tituloParaDeletar = input("Digite o nome do livro que deseja deletar: ")
-    if bibliotecaExemplo["titulo"].count(tituloParaDeletar) > 1:
-        #quero mostrar lista apenas do titulo, com autor,categoria e valor
-        print("Escreva o nome do autor para confirmar o livro certo: ")
-        for x in bibliotecaExemplo:
-            if bibliotecaExemplo["titulo"][x]:
-                print(bibliotecaExemplo[x])
-        autorParaDeletar = input()
-
-
-                #get index to delete
-        contador = -1
-        for x in len(bibliotecaExemplo["titulo"]):
-            contador += 1
-            if bibliotecaExemplo["titulo"][x] == tituloParaDeletar and bibliotecaExemplo["autor"][x] == autorParaDeletar:
-                indexParaDeletar = contador
-                break
-        del bibliotecaExemplo["titulo"][indexParaDeletar]
-        del bibliotecaExemplo["autor"][indexParaDeletar]
-        del bibliotecaExemplo["categoria"][indexParaDeletar]
-        del bibliotecaExemplo["valor"][indexParaDeletar]
+    global biblioteca #ter certeza de que variavel biblioteca é o mesmo da global
+    if biblioteca == {}:
+        print("A biblioteca está vazia!")
     else:
+        listar()
+        tituloParaDeletar = input("Digite o ID do livro que deseja deletar: ")
+        if biblioteca["titulo"].count(tituloParaDeletar) > 1:
+            #quero mostrar lista apenas do titulo, com autor,categoria e valor
+            print("Escreva o nome do autor para confirmar o livro certo: ")
+            for x in biblioteca:
+                if biblioteca["titulo"][x]:
+                    print(biblioteca[x])
+            autorParaDeletar = input()
 
-        indexParaDeletar = bibliotecaExemplo.index(tituloParaDeletar)
-        del bibliotecaExemplo["titulo"][indexParaDeletar]
-        del bibliotecaExemplo["autor"][indexParaDeletar]
-        del bibliotecaExemplo["categoria"][indexParaDeletar]
-        del bibliotecaExemplo["valor"][indexParaDeletar]
+
+                    #get index to delete
+            contador = -1
+            for x in range(len(biblioteca["titulo"])):
+                contador += 1
+                if biblioteca["titulo"][x] == tituloParaDeletar and biblioteca["autor"][x] == autorParaDeletar:
+                    indexParaDeletar = contador
+                    break
+            del biblioteca["titulo"][indexParaDeletar]
+            del biblioteca["autor"][indexParaDeletar]
+            del biblioteca["categoria"][indexParaDeletar]
+            del biblioteca["valor"][indexParaDeletar]
+        else:
+
+            biblioteca = {}
 
 def listar():
-    for i in range(len(bibliotecaExemplo["titulo"])):
-        print(f"""{i}. '{bibliotecaExemplo["titulo"][i]}' por {bibliotecaExemplo['autor'][i]}\n{categorias[bibliotecaExemplo['categoria'][i]]} ; R$: {bibliotecaExemplo["valor"][i]}.""")
+    global biblioteca
+    if biblioteca == {}:
+        print("A biblioteca está vazia!")
+    for i in range(len(biblioteca['titulo'])):
+        print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
 
-
+cadastrar()
+cadastrar()
+deletar()
 listar()
 
 #def atualizar():
