@@ -80,4 +80,20 @@ cadastrar()
 deletar()
 listar()
 
-#def atualizar():
+def atualizar():
+    posicao=int(input(f"Digite o número do livro que deseja modificar de acordo com a listagem: {listar()}"))
+    item=input("Digite de qual categoria deseja modificar a informação:")
+    novo=input("Qual será o novo valor?")
+
+
+    if item == "titulo":
+        biblioteca["titulo"][posicao] = novo
+
+    elif item =="autor":
+        biblioteca["autor"][posicao] = novo
+
+    elif item =="categoria":
+        biblioteca["categoria"][posicao] = novo
+
+    elif item =="valor":
+        biblioteca["valor"][posicao] = float(novo)
