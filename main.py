@@ -36,7 +36,8 @@ def cadastrar():
             biblioteca["categoria"].append(categoria)
             biblioteca["valor"].append(preco)
         
-        arquivo.write(titulo + " " + autor + " " + str(categoria) + " " + str(preco) + "\n")
+    arquivo.write(titulo + " " + autor + " " + str(categoria) + " " + str(preco) + "\n")
+    arquivo.close() 
 
 
 def deletar():
