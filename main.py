@@ -13,7 +13,31 @@ bibliotecaExemplo = {
     "valor" : [105, 200]
 
 }
+def inicializar():
+    biblioteca = {
+    "titulo" : [],
+    "autor" : [],
+    "categoria": [],
+    "valor": []
+    }
 
+    with open("antonio.txt", "r", encoding = "utf-8") as arquivo:
+        for linha in arquivo:
+            linha = linha.strip() # se nao usar strip, printa \n
+            print(f" essa eh linha: {linha}")
+            if linha == "":
+                break #sair do loop caso linha esteja em branco, significa que nao ha mais livros. Um failsafe.
+            else:
+                biblioteca["titulo"].append(linha)         
+                linha = next(arquivo).strip()
+                biblioteca["autor"].append(linha)
+                linha = next(arquivo).strip()
+                biblioteca["categoria"].append(linha)
+                linha = next(arquivo).strip()
+                biblioteca["valor"].append(linha)
+        arquivo.close()
+
+    print(biblioteca)
 
 
 categorias = ["Terror", "Aventura", "Sci-fi"]
@@ -44,6 +68,7 @@ def cadastrar():
             biblioteca["valor"].append(preco)
         
     #arquivo.write(titulo + " " + autor + " " + str(categoria) + " " + str(preco) + "\n")
+        arquivo.write("\n")
         arquivo.write(titulo + "\n") # I want each of these to be in one line
         arquivo.write(autor + "\n")
         arquivo.write(str(categoria) + "\n")
@@ -111,7 +136,7 @@ def atualizar():
     
         
 
-while True:
+"""while True:
     print("\n Gerenciamento de Biblioteca Pessoal \n")
     print("1. Cadastrar Livro")
     print("\n2. Listar Livros")
@@ -136,4 +161,7 @@ while True:
     elif opcao == '5':
         break
     else:
-        print("Tente novamente")
+        print("Tente novamente")"""
+
+inicializar()
+cadastrar()
