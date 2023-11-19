@@ -80,7 +80,7 @@ def deletar():
         listar()
         idParaDeletar = input("Digite o ID do livro que deseja deletar: ")
         del biblioteca["titulo"][idParaDeletar]
-        del biblioteca["autor"][idParaDeletar]
+        del biblioteca["autor"][idParaDeletSar]
         del biblioteca["categoria"][idParaDeletar]
         del biblioteca["valor"][idParaDeletar]
         doDicionarioParaFile() # quero reescrever o file INTEIRO, baseado na nova biblioteca
@@ -181,6 +181,11 @@ def atualizar():
 """inicializar()
 cadastrar()
 deletar()"""
+
+
+biblioteca = inicializar()
+
+listar()
 
 
 biblioteca = inicializar()
