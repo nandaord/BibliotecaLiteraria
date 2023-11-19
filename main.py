@@ -1,4 +1,3 @@
-
 def inicializar():
     biblioteca = {
     "titulo" : [],
@@ -32,21 +31,18 @@ categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","Gêne
 def cadastrar():
     global biblioteca #ter certeza de que variavel biblioteca é o mesmo da global
     with open("antonio.txt", "a", encoding="utf-8") as arquivo:
-        titulo = input("Digite o nome do livro: ")
-        if not titulo.strip():
-            print(f"Nome do livro não pode está vazio.")
-            return
         
+        titulo = input("Digite o nome do livro: ")
         autor = input("Digite o nome do autor do livro: ")
-        if not autor.strip():
-            print(f"O nome do autor não pode está vazio.")
+        if (not titulo.strip() or not autor.strip()):
+            print(f"O nome ou o autor do livro não foi colocado.")
+            return
     try:
         print(f"Essas sao as categorias disponiveis: {list(enumerate(categorias))}")
         categoria = int(input("Digite a qual categoria o livro pertence: "))
         
         if categoria < 1 or categoria > len(categorias):
             raise ValueError("ERRO. Escolha um número dentro das opções listadas.")
-
     except ValueError as e:
         print(e)
         return
@@ -137,20 +133,19 @@ def atualizar():
             biblioteca["valor"][posicao] = float(novo)
         print(biblioteca)
         doDicionarioParaFile()
-        
-    
-        
+            
 
 while True:
+    
     print("\n Gerenciamento de Biblioteca Pessoal \n")
     print("1. Cadastrar Livro")
     print("\n2. Listar Livros")
     print("\n3. Atualizar Livro")
     print("\n4. Excluir Livro")
     print("\n5. Sair")
-    
+        
     opcao = input("Escolha uma opção: ")
-    
+        
     if opcao == '1':
         cadastrar()
         input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
@@ -167,11 +162,8 @@ while True:
         break
     else:
         print("Opção inválida. Tente novamente")
-
 inicializar()
 cadastrar()
 deletar()
-
-
 biblioteca = inicializar()
 atualizar()
