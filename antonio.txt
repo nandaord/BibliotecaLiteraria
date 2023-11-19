@@ -6,3 +6,11 @@ dbz
 akira toriyama
 2
 100
+oiLivro
+oiAutor
+1
+52.0
+olaLivro
+olaAutor
+0
+25.0
