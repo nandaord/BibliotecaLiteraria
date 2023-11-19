@@ -99,22 +99,29 @@ def listar():
 
 
 def atualizar():
-        posicao=int(input(f"Digite o número do livro que deseja modificar de acordo com a listagem: {listar()}"))
-        item=input("Digite de qual categoria deseja modificar a informação:")
+        listar()
+        print("\n")
+        posicao=int(input(f"Digite o número do livro que deseja modificar de acordo com a listagem:"))
+        print("1- titulo\n2- autor\n3-genero\n4-custo\n")
+        item=int(input("Digite o id de qual categoria voce quer editar: "))
         novo=input("Qual será o novo valor?")
 
 
-        if item == "titulo":
+        if item == 1:
             biblioteca["titulo"][posicao] = novo
+            print("entrou nesse primeiro if")
 
-        elif item =="autor":
+        elif item ==2:
             biblioteca["autor"][posicao] = novo
 
-        elif item =="categoria":
-            biblioteca["categoria"][posicao] = novo
+        elif item ==3:
+            biblioteca["categoria"][posicao] = int(novo)
 
-        elif item =="valor":
+        elif item ==4:
             biblioteca["valor"][posicao] = float(novo)
+        print(biblioteca)
+        doDicionarioParaFile()
+        
     
         
 
@@ -151,4 +158,4 @@ deletar()"""
 
 
 biblioteca = inicializar()
-doDicionarioParaFile()
+atualizar()
