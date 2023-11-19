@@ -9,7 +9,7 @@ bibliotecaExemplo = {
 
 }
 
-categorias = ["Terror", "Aventura", "Sci-fi"]
+categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","Gêneros Literário","Young Adult"]
 
 def cadastrar():
     global biblioteca #ter certeza de que variavel biblioteca é o mesmo da global
