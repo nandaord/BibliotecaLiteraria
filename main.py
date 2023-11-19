@@ -1,18 +1,6 @@
 #manipulacao de dados
 
-biblioteca = {
-    "titulo" : [],
-    "autor" : [],
-    "categoria": [],
-    "valor": []
-}
-bibliotecaExemplo = {
-    "titulo" : ["harry potter", "metamorfose"],
-    "autor" : ["jk", "franz kafka"],
-    "categoria" : [1, 2],
-    "valor" : [105, 200]
 
-}
 def inicializar():
     biblioteca = {
     "titulo" : [],
@@ -32,12 +20,13 @@ def inicializar():
                 linha = next(arquivo).strip()
                 biblioteca["autor"].append(linha)
                 linha = next(arquivo).strip()
-                biblioteca["categoria"].append(linha)
+                biblioteca["categoria"].append(int(linha))
                 linha = next(arquivo).strip()
-                biblioteca["valor"].append(linha)
+                biblioteca["valor"].append(float(linha))
         arquivo.close()
 
     print(biblioteca)
+    return biblioteca
 
 
 categorias = ["Terror", "Aventura", "Sci-fi"]
@@ -64,8 +53,8 @@ def cadastrar():
 
             biblioteca["titulo"].append(titulo)
             biblioteca["autor"].append(autor)
-            biblioteca["categoria"].append(categoria)
-            biblioteca["valor"].append(preco)
+            biblioteca["categoria"].append(int(categoria))
+            biblioteca["valor"].append(float(preco))
         
     #arquivo.write(titulo + " " + autor + " " + str(categoria) + " " + str(preco) + "\n")
         arquivo.write("\n")
@@ -77,41 +66,34 @@ def cadastrar():
 
 
 def deletar():
+    listar()
     # TODO: considerar se só tem um livro pra deletar e criar uma bibklioteca vazianesse caso
     global biblioteca #ter certeza de que variavel biblioteca é o mesmo da global
     if biblioteca == {}:
         print("A biblioteca está vazia!")
     else:
         listar()
-        tituloParaDeletar = input("Digite o ID do livro que deseja deletar: ")
-        if biblioteca["titulo"].count(tituloParaDeletar) > 1:
-            #quero mostrar lista apenas do titulo, com autor,categoria e valor
-            print("Escreva o nome do autor para confirmar o livro certo: ")
-            for x in biblioteca:
-                if biblioteca["titulo"][x]:
-                    print(biblioteca[x])
-            autorParaDeletar = input()
+        idParaDeletar = input("Digite o ID do livro que deseja deletar: ")
+        del biblioteca["titulo"][idParaDeletar]
+        del biblioteca["autor"][idParaDeletar]
+        del biblioteca["categoria"][idParaDeletar]
+        del biblioteca["valor"][idParaDeletar]
+        doDicionarioParaFile() # quero reescrever o file INTEIRO, baseado na nova biblioteca
 
 
-                    #get index to delete
-            contador = -1
-            for x in range(len(biblioteca["titulo"])):
-                contador += 1
-                if biblioteca["titulo"][x] == tituloParaDeletar and biblioteca["autor"][x] == autorParaDeletar:
-                    indexParaDeletar = contador
-                    break
-            del biblioteca["titulo"][indexParaDeletar]
-            del biblioteca["autor"][indexParaDeletar]
-            del biblioteca["categoria"][indexParaDeletar]
-            del biblioteca["valor"][indexParaDeletar]
-        else:
-
-            biblioteca = {}
+                
+def doDicionarioParaFile():
+    global biblioteca #ter certeza de que variavel biblioteca é o mesmo da global
+    with open("antonio.txt", ("w"), encoding="utf-8") as arquivo:
+        for i in range(len(biblioteca["titulo"])):
+            arquivo.write(biblioteca["titulo"][i] + "\n") # I want each of these to be in one line
+            arquivo.write(biblioteca["autor"][i] + "\n")
+            arquivo.write(str(biblioteca["categoria"][i]) + "\n")
+            arquivo.write(str(biblioteca["valor"][i]) + "\n")
+        arquivo.close()
 
 def listar():
-    global biblioteca
-    if biblioteca == {}:
-        print("A biblioteca está vazia!")
+    print(biblioteca)
     for i in range(len(biblioteca['titulo'])):
         print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
 
@@ -163,5 +145,10 @@ def atualizar():
     else:
         print("Tente novamente")"""
 
-inicializar()
+"""inicializar()
 cadastrar()
+deletar()"""
+
+
+biblioteca = inicializar()
+doDicionarioParaFile()
