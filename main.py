@@ -8,22 +8,27 @@ def inicializar():
     "categoria": [],
     "valor": []
     }
-
-    with open("antonio.txt", "r", encoding = "utf-8") as arquivo:
-        for linha in arquivo:
-            linha = linha.strip() # se nao usar strip, printa \n
-            print(f" essa eh linha: {linha}")
-            if linha == "":
-                break #sair do loop caso linha esteja em branco, significa que nao ha mais livros. Um failsafe.
-            else:
-                biblioteca["titulo"].append(linha)         
-                linha = next(arquivo).strip()
-                biblioteca["autor"].append(linha)
-                linha = next(arquivo).strip()
-                biblioteca["categoria"].append(int(linha))
-                linha = next(arquivo).strip()
-                biblioteca["valor"].append(float(linha))
-        arquivo.close()
+    
+    try:
+        with open("antonio.txt", "r", encoding = "utf-8") as arquivo:
+            for linha in arquivo:
+                linha = linha.strip() # se nao usar strip, printa \n
+                print(f" essa eh linha: {linha}")
+                if linha == "":
+                    break #sair do loop caso linha esteja em branco, significa que nao ha mais livros. Um failsafe.
+                else:
+                    biblioteca["titulo"].append(linha)         
+                    linha = next(arquivo).strip()
+                    biblioteca["autor"].append(linha)
+                    linha = next(arquivo).strip()
+                    biblioteca["categoria"].append(int(linha))
+                    linha = next(arquivo).strip()
+                    biblioteca["valor"].append(float(linha))
+            arquivo.close()
+    except FileNotFoundError:
+        print("Arquivo txt nao foi encontrado!")
+        print("Criaremos um arquivo para voce.")
+        open("antonio.txt", "w")
 
     print(biblioteca)
     return biblioteca
@@ -93,10 +98,31 @@ def doDicionarioParaFile():
         arquivo.close()
 
 def listar():
+    print(" 1-Listar Tudo\n2-Listar filtrado por categoria\n3-Listar Gastos Totais\n4- Listar gastos filtrado por categoria")
     print(biblioteca)
-    for i in range(len(biblioteca['titulo'])):
-        print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
+    choice = int(input())
 
+    if choice == 1:
+        for i in range(len(biblioteca['titulo'])):
+            print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
+    elif choice == 2:
+        choiceCategoria = int(input(f"{list(enumerate(categorias))}\nQual categoria? "))
+        for i in range(len(biblioteca['titulo'])):
+            if biblioteca['categoria'][i] == choiceCategoria:
+                print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
+    elif choice == 3:
+        custoTotal = 0
+        for i in range(len(biblioteca['titulo'])):
+            custoTotal += biblioteca["custo"][i]
+        print(f"{custoTotal} R$")
+    elif choice == 4:
+        custoTotal = 0
+        choiceCategoria = int(input(f"{list(enumerate(categorias))}\nQual categoria? "))
+        
+        for i in range(len(biblioteca['titulo'])):
+            if biblioteca['categoria'][i] == choiceCategoria:
+                custoTotal += biblioteca["custo"][i]
+        print(f"{custoTotal} R$")
 
 def atualizar():
         listar()
@@ -158,4 +184,5 @@ deletar()"""
 
 
 biblioteca = inicializar()
-atualizar()
+
+listar()
