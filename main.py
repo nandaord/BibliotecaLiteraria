@@ -48,10 +48,23 @@ def cadastrar():
         categoria = int(input("Digite a qual categoria o livro pertence: "))
         preco = float(input("Digite o preço do livro: "))
 
-        biblioteca["titulo"].append(titulo)
-        biblioteca["autor"].append(autor)
-        biblioteca["categoria"].append(int(categoria))
-        biblioteca["valor"].append(float(preco))
+        if biblioteca == {}:
+            biblioteca = {
+                "titulo" : [titulo],
+                "autor" : [autor],
+                "categoria" : [categoria],
+                "valor" : [preco]
+            }
+            biblioteca["titulo"].append(titulo)
+            biblioteca["autor"].append(autor)
+            biblioteca["categoria"].append(int(categoria))
+            biblioteca["valor"].append(float(preco))
+        else:
+
+            biblioteca["titulo"].append(titulo)
+            biblioteca["autor"].append(autor)
+            biblioteca["categoria"].append(int(categoria))
+            biblioteca["valor"].append(float(preco))
         
     #arquivo.write(titulo + " " + autor + " " + str(categoria) + " " + str(preco) + "\n")
         arquivo.write("\n")
