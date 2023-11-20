@@ -76,19 +76,23 @@ def cadastrar():
 
 
 def deletar():
-    listar()
     # TODO: considerar se só tem um livro pra deletar e criar uma bibklioteca vazianesse caso
     global biblioteca #ter certeza de que variavel biblioteca é o mesmo da global
     if biblioteca == {}:
         print("A biblioteca está vazia!")
     else:
         listar()
-        idParaDeletar = input("Digite o ID do livro que deseja deletar: ")
-        del biblioteca["titulo"][idParaDeletar]
-        del biblioteca["autor"][idParaDeletar]
-        del biblioteca["categoria"][idParaDeletar]
-        del biblioteca["valor"][idParaDeletar]
-        doDicionarioParaFile() # quero reescrever o file INTEIRO, baseado na nova biblioteca
+        try:
+            idParaDeletar = int(input("Digite o ID do livro que deseja deletar: "))
+            del biblioteca["titulo"][idParaDeletar]
+            del biblioteca["autor"][idParaDeletar]
+            del biblioteca["categoria"][idParaDeletar]
+            del biblioteca["valor"][idParaDeletar]
+            doDicionarioParaFile() # quero reescrever o file INTEIRO, baseado na nova biblioteca
+        except IndexError:
+            print("Não existe livro com esse valor.\nAção cancelada.")
+        except ValueError:
+            print("Escreva um número")
 
 
                 
@@ -190,9 +194,4 @@ deletar()"""
 
 biblioteca = inicializar()
 
-listar()
-
-
-biblioteca = inicializar()
-
-listar()
+deletar()
