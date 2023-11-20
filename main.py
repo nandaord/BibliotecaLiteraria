@@ -29,6 +29,7 @@ def inicializar():
         print("Arquivo txt nao foi encontrado!")
         print("Criaremos um arquivo para voce.")
         open("antonio.txt", "w")
+        close()
 
     print(biblioteca)
     return biblioteca
