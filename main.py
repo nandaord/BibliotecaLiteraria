@@ -26,7 +26,7 @@ def inicializar():
  
 
 
-categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","Gêneros Literário","Young Adult"]
+categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","Gêneros Literário","Young Adult", "Outros"]
 
 def cadastrar():
     global biblioteca #ter certeza de que variavel biblioteca é o mesmo da global
