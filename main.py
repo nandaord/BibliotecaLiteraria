@@ -13,7 +13,6 @@ def inicializar():
         with open("antonio.txt", "r", encoding = "utf-8") as arquivo:
             for linha in arquivo:
                 linha = linha.strip() # se nao usar strip, printa \n
-                print(f" essa eh linha: {linha}")
                 if linha == "":
                     break #sair do loop caso linha esteja em branco, significa que nao ha mais livros. Um failsafe.
                 else:
@@ -28,8 +27,8 @@ def inicializar():
     except FileNotFoundError:
         print("Arquivo txt nao foi encontrado!")
         print("Criaremos um arquivo para voce.")
-        open("antonio.txt", "w")
-        close()
+        arquivo = open("antonio.txt", "w")
+        arquivo.close()
 
     print(biblioteca)
     return biblioteca
