@@ -47,26 +47,18 @@ def cadastrar():
     
         categoria = int(input("Digite a qual categoria o livro pertence: "))
         preco = float(input("Digite o preço do livro: "))
-        if biblioteca == {}:
-            biblioteca = {
-                "titulo" : [titulo],
-                "autor" : [autor],
-                "categoria" : [categoria],
-                "valor" : [preco]
-            }
-        else:
 
-            biblioteca["titulo"].append(titulo)
-            biblioteca["autor"].append(autor)
-            biblioteca["categoria"].append(int(categoria))
-            biblioteca["valor"].append(float(preco))
+        biblioteca["titulo"].append(titulo)
+        biblioteca["autor"].append(autor)
+        biblioteca["categoria"].append(int(categoria))
+        biblioteca["valor"].append(float(preco))
         
     #arquivo.write(titulo + " " + autor + " " + str(categoria) + " " + str(preco) + "\n")
         arquivo.write("\n")
         arquivo.write(titulo + "\n") # I want each of these to be in one line
         arquivo.write(autor + "\n")
         arquivo.write(str(categoria) + "\n")
-        arquivo.write(str(preco) + "\n")
+        arquivo.write(str(preco) + "\n") # talvez tirar \n
         arquivo.close()
 
 
@@ -80,7 +72,7 @@ def deletar():
         listar()
         idParaDeletar = input("Digite o ID do livro que deseja deletar: ")
         del biblioteca["titulo"][idParaDeletar]
-        del biblioteca["autor"][idParaDeletSar]
+        del biblioteca["autor"][idParaDeletar]
         del biblioteca["categoria"][idParaDeletar]
         del biblioteca["valor"][idParaDeletar]
         doDicionarioParaFile() # quero reescrever o file INTEIRO, baseado na nova biblioteca
