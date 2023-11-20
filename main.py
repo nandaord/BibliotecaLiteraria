@@ -107,7 +107,7 @@ def doDicionarioParaFile():
         arquivo.close()
 
 def listar():
-    print(" 1-Listar Tudo\n2-Listar filtrado por categoria\n3-Listar Gastos Totais\n4- Listar gastos filtrado por categoria")
+    print(" 1-Listar Tudo\n2-Listar filtrado por categoria especifica\n3-Listar Gastos Totais\n4- Listar gastos filtrado por categoria\n5-Listar filtrado por categoria")
     print(biblioteca)
     choice = int(input())
 
@@ -132,6 +132,20 @@ def listar():
             if biblioteca['categoria'][i] == choiceCategoria:
                 custoTotal += biblioteca["custo"][i]
         print(f"{custoTotal} R$")
+
+
+    elif choice == 5:
+        print("\n")
+        for x in range(0, 9):
+            print(f"\nLivros de {categorias[x]}: \n")
+            for i in range(len(biblioteca['titulo'])):
+                if biblioteca['categoria'][i] == x:
+                    print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
+
+
+
+        # agr pra printar
+
 
 def atualizar():
         listar()
@@ -194,4 +208,4 @@ deletar()"""
 
 biblioteca = inicializar()
 
-deletar()
+listar()
