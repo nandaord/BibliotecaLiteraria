@@ -1,3 +1,6 @@
+#manipulacao de dados
+
+
 def inicializar():
     biblioteca = {
     "titulo" : [],
@@ -5,97 +8,92 @@ def inicializar():
     "categoria": [],
     "valor": []
     }
-    with open("antonio.txt", "r", encoding = "utf-8") as arquivo:
-        for linha in arquivo:
-            linha = linha.strip() # se nao usar strip, printa \n
-            print(f" essa eh linha: {linha}")
-            if linha == "":
-                break #sair do loop caso linha esteja em branco, significa que nao ha mais livros. Um failsafe.
-            else:
-                biblioteca["titulo"].append(linha)         
-                linha = next(arquivo).strip()
-                biblioteca["autor"].append(linha)
-                linha = next(arquivo).strip()
-                biblioteca["categoria"].append(int(linha))
-                linha = next(arquivo).strip()
-                biblioteca["valor"].append(float(linha))
+    
+    try:
+        with open("antonio.txt", "r", encoding = "utf-8") as arquivo:
+            for linha in arquivo:
+                linha = linha.strip() # se nao usar strip, printa \n
+                if linha == "":
+                    break #sair do loop caso linha esteja em branco, significa que nao ha mais livros. Um failsafe.
+                else:
+                    biblioteca["titulo"].append(linha)         
+                    linha = next(arquivo).strip()
+                    biblioteca["autor"].append(linha)
+                    linha = next(arquivo).strip()
+                    biblioteca["categoria"].append(int(linha))
+                    linha = next(arquivo).strip()
+                    biblioteca["valor"].append(float(linha))
             arquivo.close()
+    except FileNotFoundError:
+        print("Arquivo txt nao foi encontrado!")
+        print("Criaremos um arquivo para voce.")
+        arquivo = open("antonio.txt", "w")
+        arquivo.close()
 
-        print(biblioteca)
-        return biblioteca
- 
+    print(biblioteca)
+    return biblioteca
 
 
 categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","Gêneros Literário","Young Adult", "Outros"]
 
-def cadastrar():
-    global biblioteca #ter certeza de que variavel biblioteca é o mesmo da global
+def cadastrar(biblioteca):
+    
     with open("antonio.txt", "a", encoding="utf-8") as arquivo:
-        
         titulo = input("Digite o nome do livro: ")
         autor = input("Digite o nome do autor do livro: ")
-        if (not titulo.strip() or not autor.strip()):
-            print(f"O nome ou o autor do livro não foi colocado.")
-            return
-    try:
+    
         print(f"Essas sao as categorias disponiveis: {list(enumerate(categorias))}")
+    
         categoria = int(input("Digite a qual categoria o livro pertence: "))
-        
-        if categoria < 1 or categoria > len(categorias):
-            raise ValueError("ERRO. Escolha um número dentro das opções listadas.")
-    except ValueError as e:
-        print(e)
-        return
-    
-    try:
         preco = float(input("Digite o preço do livro: "))
-    except TypeError:
-        print(f"ERRO.\nColoque um valor numérico para o preço.")
-        return
-    
-    
-    if biblioteca == {}:
-        biblioteca = {
-            "titulo" : [titulo],
-            "autor" : [autor],
-            "categoria" : [categoria],
-            "valor" : [preco]
-        }
-    else:
 
-        biblioteca["titulo"].append(titulo)
-        biblioteca["autor"].append(autor)
-        biblioteca["categoria"].append(int(categoria))
-        biblioteca["valor"].append(float(preco))
+        if biblioteca == {}:
+            biblioteca = {
+                "titulo" : [titulo],
+                "autor" : [autor],
+                "categoria" : [categoria],
+                "valor" : [preco]
+            }
+            biblioteca["titulo"].append(titulo)
+            biblioteca["autor"].append(autor)
+            biblioteca["categoria"].append(int(categoria))
+            biblioteca["valor"].append(float(preco))
+        else:
+
+            biblioteca["titulo"].append(titulo)
+            biblioteca["autor"].append(autor)
+            biblioteca["categoria"].append(int(categoria))
+            biblioteca["valor"].append(float(preco))
         
     #arquivo.write(titulo + " " + autor + " " + str(categoria) + " " + str(preco) + "\n")
         arquivo.write("\n")
         arquivo.write(titulo + "\n") # I want each of these to be in one line
         arquivo.write(autor + "\n")
         arquivo.write(str(categoria) + "\n")
-        arquivo.write(str(preco) + "\n")
+        arquivo.write(str(preco) + "\n") # talvez tirar \n
         arquivo.close()
 
 
-def deletar():
-    listar()
-    # TODO: considerar se só tem um livro pra deletar e criar uma bibklioteca vazianesse caso
-    global biblioteca #ter certeza de que variavel biblioteca é o mesmo da global
+def deletar(biblioteca):
     if biblioteca == {}:
         print("A biblioteca está vazia!")
     else:
         listar()
-        idParaDeletar = input("Digite o ID do livro que deseja deletar: ")
-        del biblioteca["titulo"][idParaDeletar]
-        del biblioteca["autor"][idParaDeletar]
-        del biblioteca["categoria"][idParaDeletar]
-        del biblioteca["valor"][idParaDeletar]
-        doDicionarioParaFile() # quero reescrever o file INTEIRO, baseado na nova biblioteca
+        try:
+            idParaDeletar = int(input("Digite o ID do livro que deseja deletar: "))
+            del biblioteca["titulo"][idParaDeletar]
+            del biblioteca["autor"][idParaDeletar]
+            del biblioteca["categoria"][idParaDeletar]
+            del biblioteca["valor"][idParaDeletar]
+            doDicionarioParaFile() # quero reescrever o file INTEIRO, baseado na nova biblioteca
+        except IndexError:
+            print("Não existe livro com esse valor.\nAção cancelada.")
+        except ValueError:
+            print("Escreva um número")
 
 
                 
-def doDicionarioParaFile():
-    global biblioteca #ter certeza de que variavel biblioteca é o mesmo da global
+def doDicionarioParaFile(biblioteca):
     with open("antonio.txt", ("w"), encoding="utf-8") as arquivo:
         for i in range(len(biblioteca["titulo"])):
             arquivo.write(biblioteca["titulo"][i] + "\n") # I want each of these to be in one line
@@ -104,11 +102,32 @@ def doDicionarioParaFile():
             arquivo.write(str(biblioteca["valor"][i]) + "\n")
         arquivo.close()
 
-def listar():
+def listar(biblioteca):
+    print(" 1-Listar Tudo\n2-Listar filtrado por categoria\n3-Listar Gastos Totais\n4- Listar gastos filtrado por categoria")
     print(biblioteca)
-    for i in range(len(biblioteca['titulo'])):
-        print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
+    choice = int(input())
 
+    if choice == 1:
+        for i in range(len(biblioteca['titulo'])):
+            print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
+    elif choice == 2:
+        choiceCategoria = int(input(f"{list(enumerate(categorias))}\nQual categoria? "))
+        for i in range(len(biblioteca['titulo'])):
+            if biblioteca['categoria'][i] == choiceCategoria:
+                print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
+    elif choice == 3:
+        custoTotal = 0
+        for i in range(len(biblioteca['titulo'])):
+            custoTotal += biblioteca["custo"][i]
+        print(f"{custoTotal} R$")
+    elif choice == 4:
+        custoTotal = 0
+        choiceCategoria = int(input(f"{list(enumerate(categorias))}\nQual categoria? "))
+        
+        for i in range(len(biblioteca['titulo'])):
+            if biblioteca['categoria'][i] == choiceCategoria:
+                custoTotal += biblioteca["custo"][i]
+        print(f"{custoTotal} R$")
 
 def atualizar():
         listar()
@@ -133,37 +152,39 @@ def atualizar():
             biblioteca["valor"][posicao] = float(novo)
         print(biblioteca)
         doDicionarioParaFile()
-            
+        
+    
+        
+biblioteca= inicializar()
 
 while True:
-    
     print("\n Gerenciamento de Biblioteca Pessoal \n")
     print("1. Cadastrar Livro")
     print("\n2. Listar Livros")
     print("\n3. Atualizar Livro")
     print("\n4. Excluir Livro")
     print("\n5. Sair")
-        
+    
     opcao = input("Escolha uma opção: ")
-        
+    
     if opcao == '1':
-        cadastrar()
+        cadastrar(biblioteca)
         input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
     elif opcao == '2':
-        listar()
+        listar(biblioteca)
         input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
     elif opcao == '3':
-        atualizar()
+        atualizar(biblioteca)
         input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
     elif opcao == '4':
-        deletar()
+        deletar(biblioteca)
         input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
     elif opcao == '5':
         break
     else:
-        print("Opção inválida. Tente novamente")
-inicializar()
-cadastrar()
-deletar()
-biblioteca = inicializar()
-atualizar()
+        print("Tente novamente")
+
+
+
+biblioteca = inicializar() #para retornar a variavel biblioteca que é uma variável local da função inicializar(), para poder usá-la fora da função inicializar()
+
