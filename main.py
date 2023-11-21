@@ -108,40 +108,44 @@ def doDicionarioParaFile():
 
 def listar():
     print(" 1-Listar Tudo\n2-Listar filtrado por categoria especifica\n3-Listar Gastos Totais\n4- Listar gastos filtrado por categoria\n5-Listar filtrado por categoria")
-    print(biblioteca)
-    choice = int(input())
 
-    if choice == 1:
-        for i in range(len(biblioteca['titulo'])):
-            print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
-    elif choice == 2:
-        choiceCategoria = int(input(f"{list(enumerate(categorias))}\nQual categoria? "))
-        for i in range(len(biblioteca['titulo'])):
-            if biblioteca['categoria'][i] == choiceCategoria:
-                print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
-    elif choice == 3:
-        custoTotal = 0
-        for i in range(len(biblioteca['titulo'])):
-            custoTotal += biblioteca["custo"][i]
-        print(f"{custoTotal} R$")
-    elif choice == 4:
-        custoTotal = 0
-        choiceCategoria = int(input(f"{list(enumerate(categorias))}\nQual categoria? "))
-        
-        for i in range(len(biblioteca['titulo'])):
-            if biblioteca['categoria'][i] == choiceCategoria:
-                custoTotal += biblioteca["custo"][i]
-        print(f"{custoTotal} R$")
+    try:
+        choice = int(input())
 
-
-    elif choice == 5:
-        print("\n")
-        for x in range(0, 9):
-            print(f"\nLivros de {categorias[x]}: \n")
+        if choice == 1:
             for i in range(len(biblioteca['titulo'])):
-                if biblioteca['categoria'][i] == x:
+                print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
+        elif choice == 2:
+            choiceCategoria = int(input(f"{list(enumerate(categorias))}\nQual categoria? "))
+            for i in range(len(biblioteca['titulo'])):
+                if biblioteca['categoria'][i] == choiceCategoria:
                     print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
+        elif choice == 3:
+            custoTotal = 0
+            for i in range(len(biblioteca['titulo'])):
+                custoTotal += biblioteca["custo"][i]
+            print(f"{custoTotal} R$")
+        elif choice == 4:
+            custoTotal = 0
+            choiceCategoria = int(input(f"{list(enumerate(categorias))}\nQual categoria? "))
+            
+            for i in range(len(biblioteca['titulo'])):
+                if biblioteca['categoria'][i] == choiceCategoria:
+                    custoTotal += biblioteca["custo"][i]
+            print(f"{custoTotal} R$")
 
+
+        elif choice == 5:
+            print("\n")
+            for x in range(0, 9):
+                print(f"\nLivros de {categorias[x]}: \n")
+                for i in range(len(biblioteca['titulo'])):
+                    if biblioteca['categoria'][i] == x:
+                        print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
+        else:
+            print("Digite um número válido!\n Ação cancelada.")
+    except ValueError:
+        print("Digite um número!\n Ação cancelada.")
 
 
         # agr pra printar
@@ -174,7 +178,10 @@ def atualizar():
     
         
 
-"""while True:
+biblioteca = inicializar()
+
+
+while True:
     print("\n Gerenciamento de Biblioteca Pessoal \n")
     print("1. Cadastrar Livro")
     print("\n2. Listar Livros")
@@ -197,13 +204,10 @@ def atualizar():
         deletar()
         input("\nAção concluída com sucesso. \nAperte Enter para continuar.")
     elif opcao == '5':
+        doDicionarioParaFile()
         break
     else:
-        print("Tente novamente")"""
-
-"""inicializar()
-cadastrar()
-deletar()"""
+        print("Tente novamente")
 
 
 biblioteca = inicializar()
