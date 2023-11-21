@@ -37,42 +37,23 @@ def inicializar():
 categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","Gêneros Literário","Young Adult", "Outros"]
 
 def cadastrar(biblioteca):
-    
+    titulo = input("Digite o nome do livro: ")
+    autor = input("Digite o nome do autor do livro: ")
+
+    print("Essas são as categorias disponíveis:")
+    for indice, categoria in enumerate(categorias):#para obter o indice e a categoria
+        print(f"{indice}. {categoria}")
+
+    categoria = int(input("Digite a qual categoria o livro pertence (número): "))
+    preco = float(input("Digite o preço do livro: "))
+
+    biblioteca["titulo"].append(titulo)
+    biblioteca["autor"].append(autor)
+    biblioteca["categoria"].append(categoria)
+    biblioteca["valor"].append(preco)
+
     with open("antonio.txt", "a", encoding="utf-8") as arquivo:
-        titulo = input("Digite o nome do livro: ")
-        autor = input("Digite o nome do autor do livro: ")
-    
-        print(f"Essas sao as categorias disponiveis: {list(enumerate(categorias))}")
-    
-        categoria = int(input("Digite a qual categoria o livro pertence: "))
-        preco = float(input("Digite o preço do livro: "))
-
-        if biblioteca == {}:
-            biblioteca = {
-                "titulo" : [titulo],
-                "autor" : [autor],
-                "categoria" : [categoria],
-                "valor" : [preco]
-            }
-            biblioteca["titulo"].append(titulo)
-            biblioteca["autor"].append(autor)
-            biblioteca["categoria"].append(int(categoria))
-            biblioteca["valor"].append(float(preco))
-        else:
-
-            biblioteca["titulo"].append(titulo)
-            biblioteca["autor"].append(autor)
-            biblioteca["categoria"].append(int(categoria))
-            biblioteca["valor"].append(float(preco))
-        
-    #arquivo.write(titulo + " " + autor + " " + str(categoria) + " " + str(preco) + "\n")
-        arquivo.write("\n")
-        arquivo.write(titulo + "\n") # I want each of these to be in one line
-        arquivo.write(autor + "\n")
-        arquivo.write(str(categoria) + "\n")
-        arquivo.write(str(preco) + "\n") # talvez tirar \n
-        arquivo.close()
-
+        arquivo.write(f"{titulo}\n{autor}\n{categoria}\n{preco}\n")
 
 def deletar(biblioteca):
     if biblioteca == {}:
@@ -106,28 +87,32 @@ def listar(biblioteca):
     print(" 1-Listar Tudo\n2-Listar filtrado por categoria\n3-Listar Gastos Totais\n4- Listar gastos filtrado por categoria")
     print(biblioteca)
     choice = int(input())
-
     if choice == 1:
         for i in range(len(biblioteca['titulo'])):
-            print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
+            print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}\n""")
     elif choice == 2:
-        choiceCategoria = int(input(f"{list(enumerate(categorias))}\nQual categoria? "))
+        print("Essas são as categorias disponíveis:")
+        for indice, categoria in enumerate(categorias):#para obter o indice e a categoria
+            print(f"{indice}. {categoria}")
+        choiceCategoria = int(input("\nQual categoria? "))
         for i in range(len(biblioteca['titulo'])):
             if biblioteca['categoria'][i] == choiceCategoria:
-                print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
+                print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}\n""")
     elif choice == 3:
         custoTotal = 0
         for i in range(len(biblioteca['titulo'])):
-            custoTotal += biblioteca["custo"][i]
-        print(f"{custoTotal} R$")
+            custoTotal += biblioteca["valor"][i]
+        print(f"R${custoTotal:.2f}")
     elif choice == 4:
         custoTotal = 0
-        choiceCategoria = int(input(f"{list(enumerate(categorias))}\nQual categoria? "))
-        
+        print("Essas são as categorias disponíveis:")
+        for indice, categoria in enumerate(categorias):#para obter o indice e a categoria
+            print(f"{indice}. {categoria}")
+        choiceCategoria = int(input("\nQual categoria? "))        
         for i in range(len(biblioteca['titulo'])):
             if biblioteca['categoria'][i] == choiceCategoria:
-                custoTotal += biblioteca["custo"][i]
-        print(f"{custoTotal} R$")
+                custoTotal += biblioteca["valor"][i]
+        print(f"R${custoTotal:.2f}")
 
 def atualizar():
         listar()
@@ -187,4 +172,8 @@ while True:
 
 
 biblioteca = inicializar() #para retornar a variavel biblioteca que é uma variável local da função inicializar(), para poder usá-la fora da função inicializar()
+
+
+
+
 
