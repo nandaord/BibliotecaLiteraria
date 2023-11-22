@@ -30,7 +30,7 @@ def inicializar():
     return biblioteca
 
 
-categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","HQs","Young Adult", "Outros"]
+categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","Gêneros Literário","Young Adult", "Outros"]
 
 def cadastrar():
     
@@ -41,10 +41,9 @@ def cadastrar():
                 print("Por favor, digite algo!")
             else:
                 break 
-        autor = input("Digite o nome do autor do livro: ")
         while True:
-            titulo = input("Digite o nome do livro: ")
-            if titulo.strip()=="": 
+            autor = input("Digite o nome do autor do livro: ") 
+            if autor.strip()=="": 
                 print("Por favor, digite algo!")
             else:
                 break 
