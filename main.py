@@ -30,9 +30,10 @@ def inicializar():
     return biblioteca
 
 
-categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","Gêneros Literário","Young Adult", "Outros"]
+categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","HQs","Young Adult", "Outros"]
 
 def cadastrar():
+    global biblioteca
     
     with open("minhaBiblioteca.txt", "a", encoding="utf-8") as arquivo:
         while True:
@@ -42,7 +43,7 @@ def cadastrar():
             else:
                 break 
         while True:
-            autor = input("Digite o nome do autor do livro: ") 
+            autor = input("Digite o autor do livro: ")
             if autor.strip()=="": 
                 print("Por favor, digite algo!")
             else:
@@ -75,11 +76,12 @@ def cadastrar():
         arquivo.write(titulo + "\n") 
         arquivo.write(autor + "\n")
         arquivo.write(str(categoria) + "\n")
-        arquivo.write(str(preco) + "\n") 
+        arquivo.write(str(preco)) 
         arquivo.close()
 
 
 def deletar():
+    global biblioteca
     if biblioteca == {}:
         print("A biblioteca está vazia!")
     else:
@@ -99,6 +101,7 @@ def deletar():
 
                 
 def doDicionarioParaFile(): # quero reescrever o file INTEIRO, baseado na nova biblioteca
+    global biblioteca
     with open("minhaBiblioteca.txt", ("w"), encoding="utf-8") as arquivo:
         for i in range(len(biblioteca["titulo"])):
             arquivo.write(biblioteca["titulo"][i] + "\n") # 
@@ -108,6 +111,7 @@ def doDicionarioParaFile(): # quero reescrever o file INTEIRO, baseado na nova b
         arquivo.close()
 
 def listar():
+    global biblioteca
     print(" 1-Listar Tudo\n2-Listar filtrado por categoria especifica\n3-Listar Gastos Totais\n4- Listar gastos filtrado por categoria\n5-Listar filtrado por categoria")
 
     try:
@@ -152,11 +156,13 @@ def listar():
 
 
 def listarSimples():
+    global biblioteca
     for i in range(len(biblioteca['titulo'])):
                 print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}.""")
 
 
 def atualizar():
+        global biblioteca
         print("\n")
         posicao=int(input(f"Digite o número do livro que deseja modificar de acordo com a listagem:"))
         print("1- titulo\n2- autor\n3-genero\n4-custo\n")
