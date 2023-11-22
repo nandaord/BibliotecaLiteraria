@@ -27,7 +27,6 @@ def inicializar():
         arquivo = open("minhaBiblioteca.txt", "w")
         arquivo.close()
 
-    print(biblioteca)
     return biblioteca
 
 
