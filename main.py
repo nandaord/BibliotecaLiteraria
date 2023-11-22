@@ -123,7 +123,7 @@ def listar():
         elif choice == 3:
             custoTotal = 0
             for i in range(len(biblioteca['titulo'])):
-                custoTotal += biblioteca["custo"][i]
+                custoTotal += biblioteca["valor"][i]
             print(f"{custoTotal} R$")
         elif choice == 4:
             custoTotal = 0
@@ -131,7 +131,7 @@ def listar():
             
             for i in range(len(biblioteca['titulo'])):
                 if biblioteca['categoria'][i] == choiceCategoria:
-                    custoTotal += biblioteca["custo"][i]
+                    custoTotal += biblioteca["valor"][i]
             print(f"{custoTotal} R$")
 
 
