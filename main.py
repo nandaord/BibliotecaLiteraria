@@ -37,8 +37,19 @@ def inicializar():
 categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","Gêneros Literário","Young Adult", "Outros"]
 
 def cadastrar(biblioteca):
-    titulo = input("Digite o nome do livro: ")
-    autor = input("Digite o nome do autor do livro: ")
+    while True:
+        titulo = input("Digite o nome do livro: ")
+        if titulo=="" or titulo.strip()=="":#1 espaço vazio ou vários continua o looping, o titulo.strip()=="" tira os espaços vazio da extremidade e se mesmo assim continua vazio continua o looping
+            print("Por favor, digite algo!")
+        else:
+            break 
+    while True:
+        autor = input("Digite o nome do autor do livro: ")
+        autor_sem_espacos = autor.replace(" ", "")  # trocar os espaço em branco por nada, assim removendo espaços em branco
+        if autor_sem_espacos.isalpha():
+            break
+        else:
+            print("Por favor, digite apenas letras do alfabeto!")
 
     print("Essas são as categorias disponíveis:")
     for indice, categoria in enumerate(categorias):#para obter o indice e a categoria
@@ -172,8 +183,4 @@ while True:
 
 
 biblioteca = inicializar() #para retornar a variavel biblioteca que é uma variável local da função inicializar(), para poder usá-la fora da função inicializar()
-
-
-
-
 
