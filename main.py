@@ -1,6 +1,3 @@
-#manipulacao de dados
-
-
 def inicializar():
     biblioteca = {
     "titulo" : [],
@@ -10,7 +7,7 @@ def inicializar():
     }
     
     try:
-        with open("antonio.txt", "r", encoding = "utf-8") as arquivo:
+        with open("minhaBiblioteca.txt", "r", encoding = "utf-8") as arquivo:
             for linha in arquivo:
                 linha = linha.strip() # se nao usar strip, printa \n
                 if linha == "":
@@ -27,7 +24,7 @@ def inicializar():
     except FileNotFoundError:
         print("Arquivo txt nao foi encontrado!")
         print("Criaremos um arquivo para voce.")
-        arquivo = open("antonio.txt", "w")
+        arquivo = open("minhaBiblioteca.txt", "w")
         arquivo.close()
 
     print(biblioteca)
@@ -38,7 +35,7 @@ categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","Gêne
 
 def cadastrar():
     
-    with open("antonio.txt", "a", encoding="utf-8") as arquivo:
+    with open("minhaBiblioteca.txt", "a", encoding="utf-8") as arquivo:
         while True:
             titulo = input("Digite o nome do livro: ")
             if titulo.strip()=="": #titulo.strip() tira os espaços vazio da extremidade
@@ -76,12 +73,11 @@ def cadastrar():
             biblioteca["categoria"].append(int(categoria))
             biblioteca["valor"].append(float(preco))
         
-    #arquivo.write(titulo + " " + autor + " " + str(categoria) + " " + str(preco) + "\n")
         arquivo.write("\n")
-        arquivo.write(titulo + "\n") # I want each of these to be in one line
+        arquivo.write(titulo + "\n") 
         arquivo.write(autor + "\n")
         arquivo.write(str(categoria) + "\n")
-        arquivo.write(str(preco) + "\n") # talvez tirar \n
+        arquivo.write(str(preco) + "\n") 
         arquivo.close()
 
 
@@ -96,7 +92,7 @@ def deletar():
             del biblioteca["autor"][idParaDeletar]
             del biblioteca["categoria"][idParaDeletar]
             del biblioteca["valor"][idParaDeletar]
-            doDicionarioParaFile() # quero reescrever o file INTEIRO, baseado na nova biblioteca
+            doDicionarioParaFile() 
         except IndexError:
             print("Não existe livro com esse valor.\nAção cancelada.")
         except ValueError:
@@ -104,10 +100,10 @@ def deletar():
 
 
                 
-def doDicionarioParaFile():
-    with open("antonio.txt", ("w"), encoding="utf-8") as arquivo:
+def doDicionarioParaFile(): # quero reescrever o file INTEIRO, baseado na nova biblioteca
+    with open("minhaBiblioteca.txt", ("w"), encoding="utf-8") as arquivo:
         for i in range(len(biblioteca["titulo"])):
-            arquivo.write(biblioteca["titulo"][i] + "\n") # I want each of these to be in one line
+            arquivo.write(biblioteca["titulo"][i] + "\n") # 
             arquivo.write(biblioteca["autor"][i] + "\n")
             arquivo.write(str(biblioteca["categoria"][i]) + "\n")
             arquivo.write(str(biblioteca["valor"][i]) + "\n")
