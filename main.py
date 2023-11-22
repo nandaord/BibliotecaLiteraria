@@ -30,7 +30,7 @@ def inicializar():
     return biblioteca
 
 
-categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","Gêneros Literário","Young Adult", "Outros"]
+categorias = ["Terror", "Aventura", "Sci-fi","Romance","Infantil","Drama","HQs","Young Adult", "Outros"]
 
 def cadastrar():
     
