@@ -216,8 +216,3 @@ while True:
         break
     else:
         print("Tente novamente")
-
-
-biblioteca = inicializar()
-
-listar()
