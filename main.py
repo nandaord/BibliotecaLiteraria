@@ -10,7 +10,7 @@ def inicializar():
     }
     
     try:
-        with open("antonio.txt", "r", encoding = "utf-8") as arquivo:
+        with open("antonio.txt", "r", encoding = "utf-8") as arquivo:#abre e fecha o arquivo automaticamente
             for linha in arquivo:
                 linha = linha.strip() # se nao usar strip, printa \n
                 if linha == "":
@@ -23,7 +23,6 @@ def inicializar():
                     biblioteca["categoria"].append(int(linha))
                     linha = next(arquivo).strip()
                     biblioteca["valor"].append(float(linha))
-            arquivo.close()
     except FileNotFoundError:
         print("Arquivo txt nao foi encontrado!")
         print("Criaremos um arquivo para voce.")
@@ -70,14 +69,14 @@ def deletar(biblioteca):
     if biblioteca == {}:
         print("A biblioteca está vazia!")
     else:
-        listar()
+        listar(biblioteca)
         try:
             idParaDeletar = int(input("Digite o ID do livro que deseja deletar: "))
             del biblioteca["titulo"][idParaDeletar]
             del biblioteca["autor"][idParaDeletar]
             del biblioteca["categoria"][idParaDeletar]
             del biblioteca["valor"][idParaDeletar]
-            doDicionarioParaFile() # quero reescrever o file INTEIRO, baseado na nova biblioteca
+            doDicionarioParaFile(biblioteca) # quero reescrever o file INTEIRO, baseado na nova biblioteca
         except IndexError:
             print("Não existe livro com esse valor.\nAção cancelada.")
         except ValueError:
@@ -86,13 +85,12 @@ def deletar(biblioteca):
 
                 
 def doDicionarioParaFile(biblioteca):
-    with open("antonio.txt", ("w"), encoding="utf-8") as arquivo:
+    with open("antonio.txt", ("w"), encoding="utf-8") as arquivo:# abre e fecha o arquivo automaticamente
         for i in range(len(biblioteca["titulo"])):
             arquivo.write(biblioteca["titulo"][i] + "\n") # I want each of these to be in one line
             arquivo.write(biblioteca["autor"][i] + "\n")
             arquivo.write(str(biblioteca["categoria"][i]) + "\n")
             arquivo.write(str(biblioteca["valor"][i]) + "\n")
-        arquivo.close()
 
 def listar(biblioteca):
     print(" 1-Listar Tudo\n2-Listar filtrado por categoria\n3-Listar Gastos Totais\n4- Listar gastos filtrado por categoria")
@@ -125,8 +123,8 @@ def listar(biblioteca):
                 custoTotal += biblioteca["valor"][i]
         print(f"R${custoTotal:.2f}")
 
-def atualizar():
-        listar()
+def atualizar(biblioteca):
+        listar(biblioteca)
         print("\n")
         posicao=int(input(f"Digite o número do livro que deseja modificar de acordo com a listagem:"))
         print("1- titulo\n2- autor\n3-genero\n4-custo\n")
@@ -147,7 +145,7 @@ def atualizar():
         elif item ==4:
             biblioteca["valor"][posicao] = float(novo)
         print(biblioteca)
-        doDicionarioParaFile()
+        doDicionarioParaFile(biblioteca)
         
     
         
@@ -183,4 +181,3 @@ while True:
 
 
 biblioteca = inicializar() #para retornar a variavel biblioteca que é uma variável local da função inicializar(), para poder usá-la fora da função inicializar()
-
