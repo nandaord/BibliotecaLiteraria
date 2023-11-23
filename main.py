@@ -100,8 +100,14 @@ def doDicionarioParaFile(biblioteca):
 def listar(biblioteca):
     print(" 1-Listar Tudo\n2-Listar filtrado por categoria\n3-Listar Gastos Totais\n4- Listar gastos filtrado por categoria")
     choice = int(input("Escolha uma das opções de listar: "))
-    if biblioteca == {}:
+    if biblioteca == {} or biblioteca == {
+        "titulo": [],
+        "autor": [],
+        "categoria": [],
+        "valor":[]
+        }: 
         print("A biblioteca está vazia!")
+        
     if choice == 1:
         for i in range(len(biblioteca['titulo'])):
             print(f"""{i}. '{biblioteca['titulo'][i]}' por {biblioteca['autor'][i]}\n{categorias[biblioteca['categoria'][i]]} ; R$: {biblioteca["valor"][i]}\n""")
@@ -199,6 +205,3 @@ while True:
         print("Tente novamente")
 
 biblioteca = inicializar() #para retornar a variavel biblioteca que é uma variável local da função inicializar(), para poder usá-la fora da função inicializar()
-
-
-
