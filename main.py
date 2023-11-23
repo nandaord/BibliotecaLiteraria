@@ -29,7 +29,6 @@ def inicializar():
         arquivo = open("antonio.txt", "w")
         arquivo.close()
 
-    print(biblioteca)
     return biblioteca
 
 
@@ -79,7 +78,7 @@ def deletar(biblioteca):
     else:
         listarSimples(biblioteca)
         try:
-            idParaDeletar = int(input("Digite o ID do livro que deseja deletar: "))
+            idParaDeletar = int(input("Digite o número do livro que deseja deletar: "))
             del biblioteca["titulo"][idParaDeletar]
             del biblioteca["autor"][idParaDeletar]
             del biblioteca["categoria"][idParaDeletar]
@@ -93,14 +92,13 @@ def deletar(biblioteca):
 def doDicionarioParaFile(biblioteca):
     with open("antonio.txt", ("w"), encoding="utf-8") as arquivo:# abre e fecha o arquivo automaticamente
         for i in range(len(biblioteca["titulo"])):
-            arquivo.write(biblioteca["titulo"][i] + "\n") # I want each of these to be in one line
+            arquivo.write(biblioteca["titulo"][i] + "\n") 
             arquivo.write(biblioteca["autor"][i] + "\n")
             arquivo.write(str(biblioteca["categoria"][i]) + "\n")
             arquivo.write(str(biblioteca["valor"][i]) + "\n")
 
 def listar(biblioteca):
     print(" 1-Listar Tudo\n2-Listar filtrado por categoria\n3-Listar Gastos Totais\n4- Listar gastos filtrado por categoria")
-    print(biblioteca)
     choice = int(input("Escolha uma das opções de listar: "))
     if biblioteca == {}:
         print("A biblioteca está vazia!")
@@ -129,11 +127,15 @@ def listar(biblioteca):
         print("Essas são as categorias disponíveis:")
         for indice, categoria in enumerate(categorias):#para obter o indice e a categoria
             print(f"{indice}. {categoria}")
-        choiceCategoria = int(input("\nQual categoria? "))        
+        choiceCategoria = int(input("\nQual categoria? "))
+        livros_encontrados = False        
         for i in range(len(biblioteca['titulo'])):
             if biblioteca['categoria'][i] == choiceCategoria:
                 custoTotal += biblioteca["valor"][i]
-        print(f"R${custoTotal:.2f}")
+                livros_encontrados = True
+                print(f"R${custoTotal:.2f}")
+        if livros_encontrados == False:
+            print(f'Você não possui livros dessa categoria!')
         
 def listarSimples(biblioteca):
     for i in range(len(biblioteca['titulo'])):
@@ -143,7 +145,7 @@ def atualizar(biblioteca):
         listarSimples(biblioteca)
         posicao=int(input(f"Digite o número do livro que deseja modificar de acordo com a listagem:"))
         print("1- titulo\n2- autor\n3-genero\n4-valor\n")
-        item=int(input("Digite o id de qual categoria você quer editar: "))
+        item=int(input("Digite o número de qual elemento você quer editar: "))
         novo=input("Qual será o nova informação?")
         
         if item == 1:
@@ -157,7 +159,14 @@ def atualizar(biblioteca):
 
         elif item ==4:
             biblioteca["valor"][posicao] = float(novo)
-        listar(biblioteca)
+        livro_atualizado = {
+        "titulo": biblioteca["titulo"][posicao],
+        "autor": biblioteca["autor"][posicao],
+        "categoria": biblioteca["categoria"][posicao],
+        "valor": biblioteca["valor"][posicao]
+        }
+        print(f"{posicao}. '{livro_atualizado['titulo']}' por {livro_atualizado['autor']}\n"
+              f"{categorias[livro_atualizado['categoria']]} ; R$: {livro_atualizado['valor']}\n")
         doDicionarioParaFile(biblioteca)
                 
 biblioteca= inicializar()
@@ -190,3 +199,6 @@ while True:
         print("Tente novamente")
 
 biblioteca = inicializar() #para retornar a variavel biblioteca que é uma variável local da função inicializar(), para poder usá-la fora da função inicializar()
+
+
+
