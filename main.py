@@ -10,7 +10,7 @@ def inicializar():
     }
     
     try:
-        with open("antonio.txt", "r", encoding = "utf-8") as arquivo:#abre e fecha o arquivo automaticamente
+        with open("minhaBiblioteca.txt", "r", encoding = "utf-8") as arquivo:#abre e fecha o arquivo automaticamente
             for linha in arquivo:
                 linha = linha.strip() # se nao usar strip, printa \n
                 if linha == "":
@@ -26,7 +26,7 @@ def inicializar():
     except FileNotFoundError:
         print("Arquivo txt nao foi encontrado!")
         print("Criaremos um arquivo para voce.")
-        arquivo = open("antonio.txt", "w")
+        arquivo = open("minhaBiblioteca.txt", "w")
         arquivo.close()
 
     return biblioteca
@@ -69,7 +69,7 @@ def cadastrar(biblioteca):
     biblioteca["categoria"].append(categoria)
     biblioteca["valor"].append(preco)
 
-    with open("antonio.txt", "a", encoding="utf-8") as arquivo:
+    with open("minhaBiblioteca.txt", "a", encoding="utf-8") as arquivo:
         arquivo.write(f"{titulo}\n{autor}\n{categoria}\n{preco}\n")
 
 def deletar(biblioteca):
@@ -90,7 +90,7 @@ def deletar(biblioteca):
             print("Escreva um número")
 
 def doDicionarioParaFile(biblioteca):
-    with open("antonio.txt", ("w"), encoding="utf-8") as arquivo:# abre e fecha o arquivo automaticamente
+    with open("minhaBiblioteca.txt", ("w"), encoding="utf-8") as arquivo:# abre e fecha o arquivo automaticamente
         for i in range(len(biblioteca["titulo"])):
             arquivo.write(biblioteca["titulo"][i] + "\n") 
             arquivo.write(biblioteca["autor"][i] + "\n")
@@ -175,7 +175,7 @@ def atualizar(biblioteca):
               f"{categorias[livro_atualizado['categoria']]} ; R$: {livro_atualizado['valor']}\n")
         doDicionarioParaFile(biblioteca)
                 
-biblioteca= inicializar()
+biblioteca= inicializar() #para retornar a variavel biblioteca que é uma variável local da função inicializar(), para poder usá-la fora da função inicializar()
 
 while True:
     print("\n Gerenciamento de Biblioteca Pessoal \n")
@@ -203,5 +203,3 @@ while True:
         break
     else:
         print("Tente novamente")
-
-biblioteca = inicializar() #para retornar a variavel biblioteca que é uma variável local da função inicializar(), para poder usá-la fora da função inicializar()
